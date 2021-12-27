@@ -13,13 +13,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final ac = CardModel(imgName: "ac", suit: Suits.clubs, value: 1);
+    final ac = CardModel(label: "A", suit: Suits.clubs, value: 1);
+    final ad = CardModel(label: "A", suit: Suits.diamonds, value: 1);
+    final ah = CardModel(label: "A", suit: Suits.hearts, value: 1);
+    final as = CardModel(label: "A", suit: Suits.spades, value: 1);
     return Scaffold(
       body: Column(
         children: [
           Row(
             children: [
               CardPlaying(ac),
+              CardPlaying(ad),
+              CardPlaying(ah),
+              CardPlaying(as),
               CardPlaying(ac),
             ],
           ),
