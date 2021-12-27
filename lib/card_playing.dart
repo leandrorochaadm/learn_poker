@@ -24,7 +24,7 @@ class _CardPlayingState extends State<CardPlaying> {
       child: Row(children: [
         Text(
           "${widget.card.label}${widget.card.SuitIcon()}",
-          style: TextStyle(color: _color),
+          style: TextStyle(color: _color, fontSize: 20),
         )
       ]),
     );
