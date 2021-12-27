@@ -40,15 +40,25 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            checkHand(context, Hands.royal_flush, table);
+                          },
                           child: const Text('Sequência Real Royal')),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            checkHand(context, Hands.straight_flush, table);
+                          },
                           child: const Text('Sequência de mesmo naipe	')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Quadra')),
+                          onPressed: () {
+                            checkHand(context, Hands.four_of_a_kind, table);
+                          },
+                          child: const Text('Quadra')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Full House')),
+                          onPressed: () {
+                            checkHand(context, Hands.full_house, table);
+                          },
+                          child: const Text('Full House')),
                       ElevatedButton(
                         onPressed: () {
                           checkHand(context, Hands.flush, table);
@@ -61,15 +71,30 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Sequência')),
+                          onPressed: () {
+                            checkHand(context, Hands.straight, table);
+                          },
+                          child: const Text('Sequência')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Trinca')),
+                          onPressed: () {
+                            checkHand(context, Hands.three_of_a_kind, table);
+                          },
+                          child: const Text('Trinca')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Dois Pares')),
+                          onPressed: () {
+                            checkHand(context, Hands.two_pair, table);
+                          },
+                          child: const Text('Dois Pares')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Pares')),
+                          onPressed: () {
+                            checkHand(context, Hands.one_pair, table);
+                          },
+                          child: const Text('Um Par')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Carta Alta')),
+                          onPressed: () {
+                            checkHand(context, Hands.high_card, table);
+                          },
+                          child: const Text('Carta Alta')),
                     ],
                   ),
                 ],
@@ -83,20 +108,62 @@ class _HomePageState extends State<HomePage> {
 
   List<CardModel> _cheapComplete() {
     return [
-      CardModel(label: "A", suit: Suits.clubs, value: 1),
-      CardModel(label: "A", suit: Suits.diamonds, value: 1),
-      CardModel(label: "A", suit: Suits.hearts, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
-      CardModel(label: "A", suit: Suits.clubs, value: 1),
-      CardModel(label: "A", suit: Suits.diamonds, value: 1),
-      CardModel(label: "A", suit: Suits.hearts, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
-      CardModel(label: "A", suit: Suits.hearts, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
-      CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.clubs, value: 0),
+      CardModel(label: "A", suit: Suits.diamonds, value: 0),
+      CardModel(label: "A", suit: Suits.hearts, value: 0),
+      CardModel(label: "A", suit: Suits.spades, value: 0),
+      CardModel(label: "1", suit: Suits.clubs, value: 1),
+      CardModel(label: "1", suit: Suits.diamonds, value: 1),
+      CardModel(label: "1", suit: Suits.hearts, value: 1),
+      CardModel(label: "1", suit: Suits.spades, value: 1),
+      CardModel(label: "2", suit: Suits.clubs, value: 2),
+      CardModel(label: "2", suit: Suits.diamonds, value: 2),
+      CardModel(label: "2", suit: Suits.hearts, value: 2),
+      CardModel(label: "2", suit: Suits.spades, value: 2),
+      CardModel(label: "3", suit: Suits.clubs, value: 3),
+      CardModel(label: "3", suit: Suits.diamonds, value: 3),
+      CardModel(label: "3", suit: Suits.hearts, value: 3),
+      CardModel(label: "3", suit: Suits.spades, value: 3),
+      CardModel(label: "4", suit: Suits.clubs, value: 4),
+      CardModel(label: "4", suit: Suits.diamonds, value: 4),
+      CardModel(label: "4", suit: Suits.hearts, value: 4),
+      CardModel(label: "4", suit: Suits.spades, value: 4),
+      CardModel(label: "5", suit: Suits.clubs, value: 5),
+      CardModel(label: "5", suit: Suits.diamonds, value: 5),
+      CardModel(label: "5", suit: Suits.hearts, value: 5),
+      CardModel(label: "5", suit: Suits.spades, value: 5),
+      CardModel(label: "6", suit: Suits.clubs, value: 6),
+      CardModel(label: "6", suit: Suits.diamonds, value: 6),
+      CardModel(label: "6", suit: Suits.hearts, value: 6),
+      CardModel(label: "6", suit: Suits.spades, value: 6),
+      CardModel(label: "7", suit: Suits.clubs, value: 7),
+      CardModel(label: "7", suit: Suits.diamonds, value: 7),
+      CardModel(label: "7", suit: Suits.hearts, value: 7),
+      CardModel(label: "7", suit: Suits.spades, value: 7),
+      CardModel(label: "8", suit: Suits.clubs, value: 8),
+      CardModel(label: "8", suit: Suits.diamonds, value: 8),
+      CardModel(label: "8", suit: Suits.hearts, value: 8),
+      CardModel(label: "8", suit: Suits.spades, value: 8),
+      CardModel(label: "9", suit: Suits.clubs, value: 9),
+      CardModel(label: "9", suit: Suits.diamonds, value: 9),
+      CardModel(label: "9", suit: Suits.hearts, value: 9),
+      CardModel(label: "9", suit: Suits.spades, value: 9),
+      CardModel(label: "10", suit: Suits.clubs, value: 10),
+      CardModel(label: "10", suit: Suits.diamonds, value: 10),
+      CardModel(label: "10", suit: Suits.hearts, value: 10),
+      CardModel(label: "10", suit: Suits.spades, value: 10),
+      CardModel(label: "J", suit: Suits.clubs, value: 11),
+      CardModel(label: "J", suit: Suits.diamonds, value: 11),
+      CardModel(label: "J", suit: Suits.hearts, value: 11),
+      CardModel(label: "J", suit: Suits.spades, value: 11),
+      CardModel(label: "Q", suit: Suits.clubs, value: 12),
+      CardModel(label: "Q", suit: Suits.diamonds, value: 12),
+      CardModel(label: "Q", suit: Suits.hearts, value: 12),
+      CardModel(label: "Q", suit: Suits.spades, value: 12),
+      CardModel(label: "K", suit: Suits.clubs, value: 13),
+      CardModel(label: "K", suit: Suits.diamonds, value: 13),
+      CardModel(label: "K", suit: Suits.hearts, value: 13),
+      CardModel(label: "K", suit: Suits.spades, value: 13),
     ];
   }
 
@@ -116,12 +183,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   checkHand(BuildContext context, Hands hand, List<CardModel> cards) {
-    if (Hands.flush == hand) {
-      _showDialog(context, isFlush(cards));
+    switch (hand) {
+      case Hands.royal_flush:
+        _showDialog(context, isRoyalFlush(cards));
+        break;
+      case Hands.flush:
+        _showDialog(context, isFlush(cards));
+        break;
     }
   }
 
   bool isFlush(List<CardModel> hand) {
+    Suits firstSuit = hand[0].suit;
+    return hand.every((element) => element.suit == firstSuit);
+  }
+
+  bool isRoyalFlush(List<CardModel> hand) {
     Suits firstSuit = hand[0].suit;
     return hand.every((element) => element.suit == firstSuit);
   }

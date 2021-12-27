@@ -1,5 +1,5 @@
 enum Hands {
-  five_of_a_kind,
+  royal_flush,
   straight_flush,
   four_of_a_kind,
   full_house,
