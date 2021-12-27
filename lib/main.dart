@@ -1,3 +1,4 @@
+import 'package:aprenda_poker/home.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,11 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Aprenda poker Texas Hold'em",
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const SizedBox(),
+      home: const HomePage(),
     );
   }
 }
