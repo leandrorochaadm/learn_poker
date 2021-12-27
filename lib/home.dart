@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:aprenda_poker/card_model.dart';
 import 'package:aprenda_poker/card_playing.dart';
 import 'package:aprenda_poker/suits_enum.dart';
@@ -13,10 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final ac = CardModel(label: "A", suit: Suits.clubs, value: 1);
-    final ad = CardModel(label: "A", suit: Suits.diamonds, value: 1);
-    final ah = CardModel(label: "A", suit: Suits.hearts, value: 1);
-    final as = CardModel(label: "A", suit: Suits.spades, value: 1);
+    List<CardModel> table = _cheapSort();
     return Scaffold(
       body: Column(
         children: [
@@ -24,13 +23,7 @@ class _HomePageState extends State<HomePage> {
             padding: const EdgeInsets.symmetric(vertical: 20),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CardPlaying(ac),
-                CardPlaying(ad),
-                CardPlaying(ah),
-                CardPlaying(as),
-                CardPlaying(ac),
-              ],
+              children: table.map((e) => CardPlaying(e)).toList(),
             ),
           ),
           Expanded(
@@ -79,5 +72,35 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  List<CardModel> _cheapComplete() {
+    return [
+      CardModel(label: "A", suit: Suits.clubs, value: 1),
+      CardModel(label: "A", suit: Suits.diamonds, value: 1),
+      CardModel(label: "A", suit: Suits.hearts, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.clubs, value: 1),
+      CardModel(label: "A", suit: Suits.diamonds, value: 1),
+      CardModel(label: "A", suit: Suits.hearts, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
+    ];
+  }
+
+  List<CardModel> _cheapSort() {
+    List<CardModel> cheapUse = _cheapComplete();
+
+    List<CardModel> table = [];
+
+    Random random = Random();
+    while (table.length < 5) {
+      int randomNumber = random.nextInt(cheapUse.length);
+      table.add(cheapUse[randomNumber]);
+      cheapUse.removeAt(randomNumber);
+    }
+
+    return table;
   }
 }
