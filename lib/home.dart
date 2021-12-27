@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> table = [];
   @override
   Widget build(BuildContext context) {
-    table = _cheapSort();
+    table = _list();
     return Scaffold(
       body: Column(
         children: [
@@ -167,6 +167,16 @@ class _HomePageState extends State<HomePage> {
     ];
   }
 
+  List<CardModel> _list() {
+    return [
+      CardModel(label: "A", suit: Suits.clubs, value: 0),
+      CardModel(label: "A", suit: Suits.clubs, value: 1),
+      CardModel(label: "A", suit: Suits.clubs, value: 2),
+      CardModel(label: "A", suit: Suits.clubs, value: 3),
+      CardModel(label: "1", suit: Suits.clubs, value: 4),
+    ];
+  }
+
   List<CardModel> _cheapSort() {
     List<CardModel> cheapUse = _cheapComplete();
 
@@ -187,10 +197,44 @@ class _HomePageState extends State<HomePage> {
       case Hands.royal_flush:
         _showDialog(context, isRoyalFlush(cards));
         break;
+      case Hands.straight_flush:
+        _showDialog(context, isStraightFlush(cards));
+        break;
+      case Hands.four_of_a_kind:
+        _showDialog(context, isStraightFlush(cards));
+        break;
+      case Hands.full_house:
+        _showDialog(context, isStraightFlush(cards));
+        break;
       case Hands.flush:
         _showDialog(context, isFlush(cards));
         break;
+      case Hands.straight:
+        _showDialog(context, isStraight(cards));
+        break;
+      case Hands.three_of_a_kind:
+        _showDialog(context, isStraightFlush(cards));
+        break;
+      case Hands.two_pair:
+        _showDialog(context, isStraightFlush(cards));
+        break;
+      case Hands.one_pair:
+        _showDialog(context, isStraightFlush(cards));
+        break;
+      case Hands.high_card:
+        _showDialog(context, isFlush(cards));
+        break;
     }
+  }
+
+  bool isRoyalFlush(List<CardModel> hand) {
+    // Suits firstSuit = hand[0].suit;
+    // return hand.every((element) => element.suit == firstSuit);
+    return false;
+  }
+
+  bool isStraightFlush(List<CardModel> hand) {
+    return isFlush(hand) && isStraight(hand);
   }
 
   bool isFlush(List<CardModel> hand) {
@@ -198,9 +242,15 @@ class _HomePageState extends State<HomePage> {
     return hand.every((element) => element.suit == firstSuit);
   }
 
-  bool isRoyalFlush(List<CardModel> hand) {
-    Suits firstSuit = hand[0].suit;
-    return hand.every((element) => element.suit == firstSuit);
+  bool isStraight(List<CardModel> hand) {
+    hand.sort((a, b) => a.value.compareTo(b.value));
+    List<bool> resul = [];
+    for (int i = 0; i < 4; i++) {
+      resul.add((hand[i + 1].value - hand[i].value) == 1);
+      // print("${hand[i + 1].toString()}${hand[i].toString()}${resul}");
+    }
+
+    return resul.every((element) => element == true);
   }
 
   void _showDialog(BuildContext context, bool correct) {
@@ -216,9 +266,7 @@ class _HomePageState extends State<HomePage> {
               child: const Text("Sortiar novas cartas"),
               onPressed: () {
                 Navigator.of(context).pop();
-                setState(() {
-                  table = _cheapSort();
-                });
+                setState(() {});
               },
             ),
           ],

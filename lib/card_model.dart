@@ -25,4 +25,9 @@ class CardModel {
         break;
     }
   }
+
+  @override
+  String toString() {
+    return label + SuitIcon();
+  }
 }
