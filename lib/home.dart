@@ -5,6 +5,8 @@ import 'package:aprenda_poker/card_playing.dart';
 import 'package:aprenda_poker/suits_enum.dart';
 import 'package:flutter/material.dart';
 
+import 'hand_enum.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -13,9 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<CardModel> table = [];
   @override
   Widget build(BuildContext context) {
-    List<CardModel> table = _cheapSort();
+    table = _cheapSort();
     return Scaffold(
       body: Column(
         children: [
@@ -47,7 +50,11 @@ class _HomePageState extends State<HomePage> {
                       ElevatedButton(
                           onPressed: () {}, child: const Text('Full House')),
                       ElevatedButton(
-                          onPressed: () {}, child: const Text('Flush')),
+                        onPressed: () {
+                          checkHand(context, Hands.flush, table);
+                        },
+                        child: const Text('Flush'),
+                      ),
                     ],
                   ),
                   Column(
@@ -85,6 +92,10 @@ class _HomePageState extends State<HomePage> {
       CardModel(label: "A", suit: Suits.diamonds, value: 1),
       CardModel(label: "A", suit: Suits.hearts, value: 1),
       CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.hearts, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
+      CardModel(label: "A", suit: Suits.spades, value: 1),
       CardModel(label: "A", suit: Suits.spades, value: 1),
     ];
   }
@@ -102,5 +113,40 @@ class _HomePageState extends State<HomePage> {
     }
 
     return table;
+  }
+
+  checkHand(BuildContext context, Hands hand, List<CardModel> cards) {
+    if (Hands.flush == hand) {
+      _showDialog(context, isFlush(cards));
+    }
+  }
+
+  bool isFlush(List<CardModel> hand) {
+    Suits firstSuit = hand[0].suit;
+    return hand.every((element) => element.suit == firstSuit);
+  }
+
+  void _showDialog(BuildContext context, bool correct) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: correct
+              ? const Text('Acertou', style: TextStyle(color: Colors.green))
+              : const Text('Errou', style: TextStyle(color: Colors.red)),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Sortiar novas cartas"),
+              onPressed: () {
+                Navigator.of(context).pop();
+                setState(() {
+                  table = _cheapSort();
+                });
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
