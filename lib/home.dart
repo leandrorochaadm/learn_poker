@@ -393,7 +393,7 @@ class _HomePageState extends State<HomePage> {
     for (CardModel card in cards) {
       cardGroup[card.value] = cardGroup[card.value]! + 1;
     }
-    return cardGroup.values.where((element) => element == 2).length == 2;
+    return cardGroup.values.where((element) => element == 2).length >= 2;
   }
 
   bool isOnePair(List<CardModel> cards) {
