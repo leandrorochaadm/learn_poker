@@ -345,7 +345,7 @@ class _HomePageState extends State<HomePage> {
       // print("${cards[i + 1].toString()}${cards[i].toString()}${resul}");
     }
 
-    return resul.every((element) => element == true);
+    return resul.where((element) => element == true).length >= 5;
   }
 
   bool isThreeOfAKind(List<CardModel> cards) {
