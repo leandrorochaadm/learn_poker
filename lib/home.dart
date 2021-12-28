@@ -203,12 +203,12 @@ class _HomePageState extends State<HomePage> {
     List<CardModel> table = [];
 
     Hands hand;
-    // do {
-    // table = generateNewHand();
-    table = _list();
-    hand = checkHand(table);
-    print("$table  ${hand.name}");
-    // } while (lastAnswer.contains(hand));
+    do {
+      table = generateNewHand();
+      // table = _list();
+      hand = checkHand(table);
+      print("$table  ${hand.name}");
+    } while (lastAnswer.contains(hand));
 
     return table;
   }
@@ -216,8 +216,8 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> generateNewHand() {
     Random random = Random();
     List<CardModel> table = [];
+    List<CardModel> cheapUse = _cheapComplete();
     while (table.length < 7) {
-      List<CardModel> cheapUse = _cheapComplete();
       int randomNumber = random.nextInt(cheapUse.length);
       table.add(cheapUse[randomNumber]);
       cheapUse.removeAt(randomNumber);
@@ -228,7 +228,7 @@ class _HomePageState extends State<HomePage> {
   void checkAnswer(BuildContext context, Hands hand, List<CardModel> cards) {
     Hands handCorret = checkHand(cards);
 
-    if (lastAnswer.length > 5) {
+    if (lastAnswer.length > 6) {
       lastAnswer = [];
     }
     lastAnswer.add(handCorret);
