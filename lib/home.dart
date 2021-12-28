@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> _list() {
     return [
       CardModel(label: "A", suit: Suits.clubs, value: 0),
-      CardModel(label: "A", suit: Suits.clubs, value: 0),
+      CardModel(label: "A", suit: Suits.clubs, value: 2),
       CardModel(label: "A", suit: Suits.clubs, value: 2),
       CardModel(label: "A", suit: Suits.clubs, value: 3),
       CardModel(label: "1", suit: Suits.clubs, value: 4),
@@ -216,7 +216,7 @@ class _HomePageState extends State<HomePage> {
     if (isThreeOfAKind(cards)) {
       handCorret = Hands.three_of_a_kind;
     }
-    if (isRoyalFlush(cards)) {
+    if (isTwoPair(cards)) {
       handCorret = Hands.two_pair;
     }
     if (isRoyalFlush(cards)) {
@@ -277,6 +277,30 @@ class _HomePageState extends State<HomePage> {
       cardGroup[card.value] = cardGroup[card.value]! + 1;
     }
     return cardGroup.values.contains(3);
+  }
+
+  bool isTwoPair(List<CardModel> cards) {
+    Map<int, int> cardGroup = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+      13: 0,
+    };
+
+    for (CardModel card in cards) {
+      cardGroup[card.value] = cardGroup[card.value]! + 1;
+    }
+    return cardGroup.values.where((element) => element == 2).length == 2;
   }
 
   void _showDialog(BuildContext context, bool correct) {
