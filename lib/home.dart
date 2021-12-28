@@ -201,10 +201,10 @@ class _HomePageState extends State<HomePage> {
     if (isStraightFlush(cards)) {
       handCorret = Hands.straight_flush;
     }
-    if (isRoyalFlush(cards)) {
+    if (isFourKind(cards)) {
       handCorret = Hands.four_of_a_kind;
     }
-    if (isRoyalFlush(cards)) {
+    if (isFullHouse(cards)) {
       handCorret = Hands.full_house;
     }
     if (isFlush(cards)) {
@@ -234,6 +234,34 @@ class _HomePageState extends State<HomePage> {
 
   bool isStraightFlush(List<CardModel> cards) {
     return isFlush(cards) && isStraight(cards);
+  }
+
+  bool isFourKind(List<CardModel> cards) {
+    Map<int, int> cardGroup = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+      13: 0,
+    };
+
+    for (CardModel card in cards) {
+      cardGroup[card.value] = cardGroup[card.value]! + 1;
+    }
+    return cardGroup.values.contains(4);
+  }
+
+  bool isFullHouse(List<CardModel> cards) {
+    return isTwoPair(cards) && isThreeOfAKind(cards);
   }
 
   bool isFlush(List<CardModel> cards) {
