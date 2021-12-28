@@ -178,20 +178,23 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<CardModel> _cheapSort() {
-    List<CardModel> cheapUse = _cheapComplete();
-
     List<CardModel> table = [];
 
-    Random random = Random();
+    Hands hand;
     do {
       table = [];
       while (table.length < 5) {
+        List<CardModel> cheapUse = _cheapComplete();
+        Random random = Random();
         int randomNumber = random.nextInt(cheapUse.length);
         table.add(cheapUse[randomNumber]);
         cheapUse.removeAt(randomNumber);
       }
       // print(table);
-    } while (checkHand(table) == Hands.high_card);
+      hand = checkHand(table);
+    } while (hand == Hands.high_card ||
+        hand == Hands.one_pair ||
+        hand == Hands.three_of_a_kind);
 
     return table;
   }
