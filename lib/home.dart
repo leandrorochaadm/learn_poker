@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> _list() {
     return [
       CardModel(label: "A", suit: Suits.clubs, value: 0),
-      CardModel(label: "A", suit: Suits.clubs, value: 1),
+      CardModel(label: "A", suit: Suits.clubs, value: 0),
       CardModel(label: "A", suit: Suits.clubs, value: 2),
       CardModel(label: "A", suit: Suits.clubs, value: 3),
       CardModel(label: "1", suit: Suits.clubs, value: 4),
@@ -192,65 +192,91 @@ class _HomePageState extends State<HomePage> {
     return table;
   }
 
-  checkHand(BuildContext context, Hands hand, List<CardModel> cards) {
-    switch (hand) {
-      case Hands.royal_flush:
-        _showDialog(context, isRoyalFlush(cards));
-        break;
-      case Hands.straight_flush:
-        _showDialog(context, isStraightFlush(cards));
-        break;
-      case Hands.four_of_a_kind:
-        _showDialog(context, isStraightFlush(cards));
-        break;
-      case Hands.full_house:
-        _showDialog(context, isStraightFlush(cards));
-        break;
-      case Hands.flush:
-        _showDialog(context, isFlush(cards));
-        break;
-      case Hands.straight:
-        _showDialog(context, isStraight(cards));
-        break;
-      case Hands.three_of_a_kind:
-        _showDialog(context, isStraightFlush(cards));
-        break;
-      case Hands.two_pair:
-        _showDialog(context, isStraightFlush(cards));
-        break;
-      case Hands.one_pair:
-        _showDialog(context, isStraightFlush(cards));
-        break;
-      case Hands.high_card:
-        _showDialog(context, isFlush(cards));
-        break;
+  void checkHand(BuildContext context, Hands hand, List<CardModel> cards) {
+    Hands handCorret = Hands.high_card;
+
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.royal_flush;
     }
+    if (isStraightFlush(cards)) {
+      handCorret = Hands.straight_flush;
+    }
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.four_of_a_kind;
+    }
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.full_house;
+    }
+    if (isFlush(cards)) {
+      handCorret = Hands.flush;
+    }
+    if (isStraight(cards)) {
+      handCorret = Hands.straight;
+    }
+    if (isThreeOfAKind(cards)) {
+      handCorret = Hands.three_of_a_kind;
+    }
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.two_pair;
+    }
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.one_pair;
+    }
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.high_card;
+    }
+
+    _showDialog(context, handCorret == hand);
   }
 
-  bool isRoyalFlush(List<CardModel> hand) {
+  bool isRoyalFlush(List<CardModel> cards) {
     // Suits firstSuit = hand[0].suit;
     // return hand.every((element) => element.suit == firstSuit);
     return false;
   }
 
-  bool isStraightFlush(List<CardModel> hand) {
-    return isFlush(hand) && isStraight(hand);
+  bool isStraightFlush(List<CardModel> cards) {
+    return isFlush(cards) && isStraight(cards);
   }
 
-  bool isFlush(List<CardModel> hand) {
-    Suits firstSuit = hand[0].suit;
-    return hand.every((element) => element.suit == firstSuit);
+  bool isFlush(List<CardModel> cards) {
+    Suits firstSuit = cards[0].suit;
+    return cards.every((element) => element.suit == firstSuit);
   }
 
-  bool isStraight(List<CardModel> hand) {
-    hand.sort((a, b) => a.value.compareTo(b.value));
+  bool isStraight(List<CardModel> cards) {
+    cards.sort((a, b) => a.value.compareTo(b.value));
     List<bool> resul = [];
     for (int i = 0; i < 4; i++) {
-      resul.add((hand[i + 1].value - hand[i].value) == 1);
-      // print("${hand[i + 1].toString()}${hand[i].toString()}${resul}");
+      resul.add((cards[i + 1].value - cards[i].value) == 1);
+      // print("${cards[i + 1].toString()}${cards[i].toString()}${resul}");
     }
 
     return resul.every((element) => element == true);
+  }
+
+  bool isThreeOfAKind(List<CardModel> cards) {
+    Map<int, int> cardGroup = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+      13: 0,
+    };
+
+    for (CardModel card in cards) {
+      cardGroup[card.value] = cardGroup[card.value]! + 1;
+    }
+    return cardGroup.values.contains(3);
   }
 
   void _showDialog(BuildContext context, bool correct) {
