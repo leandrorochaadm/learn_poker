@@ -190,10 +190,10 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> _list() {
     return [
       CardModel(label: "A", suit: Suits.hearts, value: 0),
-      CardModel(label: "A", suit: Suits.clubs, value: 10),
-      CardModel(label: "A", suit: Suits.clubs, value: 10),
-      CardModel(label: "A", suit: Suits.clubs, value: 10),
-      CardModel(label: "1", suit: Suits.clubs, value: 10),
+      CardModel(label: "11", suit: Suits.clubs, value: 11),
+      CardModel(label: "11", suit: Suits.clubs, value: 11),
+      CardModel(label: "10", suit: Suits.clubs, value: 10),
+      CardModel(label: "10", suit: Suits.clubs, value: 10),
     ];
   }
 
@@ -203,6 +203,7 @@ class _HomePageState extends State<HomePage> {
     Hands hand;
     do {
       table = generateNewHand();
+      // table = _list();
       hand = checkHand(table);
       print("$table  ${hand.name}");
     } while (lastAnswer.contains(hand));
@@ -225,44 +226,44 @@ class _HomePageState extends State<HomePage> {
   void checkAnswer(BuildContext context, Hands hand, List<CardModel> cards) {
     Hands handCorret = checkHand(cards);
 
-    if (lastAnswer.length > 4) {
+    if (lastAnswer.length > 5) {
       lastAnswer = [];
     }
     lastAnswer.add(handCorret);
-    print(handCorret.name + " =" + hand.name);
-    print(lastAnswer.length);
+    print("${handCorret.name} = ${hand.name} : ${lastAnswer.length}");
 
     _showDialog(context, handCorret == hand, handCorret);
   }
 
   Hands checkHand(List<CardModel> cards) {
-    if (isOnePair(cards)) {
-      return Hands.one_pair;
-    }
-    if (isTwoPair(cards)) {
-      return Hands.two_pair;
-    }
-    if (isThreeOfAKind(cards)) {
-      return Hands.three_of_a_kind;
-    }
-    if (isStraight(cards)) {
-      return Hands.straight;
-    }
-    if (isFlush(cards)) {
-      return Hands.flush;
-    }
-    if (isFullHouse(cards)) {
-      return Hands.full_house;
-    }
-    if (isFourKind(cards)) {
-      return Hands.four_of_a_kind;
+    if (isRoyalFlush(cards)) {
+      return Hands.royal_flush;
     }
     if (isStraightFlush(cards)) {
       return Hands.straight_flush;
     }
-    if (isRoyalFlush(cards)) {
-      return Hands.royal_flush;
+    if (isFourKind(cards)) {
+      return Hands.four_of_a_kind;
     }
+    if (isFullHouse(cards)) {
+      return Hands.full_house;
+    }
+    if (isFlush(cards)) {
+      return Hands.flush;
+    }
+    if (isStraight(cards)) {
+      return Hands.straight;
+    }
+    if (isThreeOfAKind(cards)) {
+      return Hands.three_of_a_kind;
+    }
+    if (isTwoPair(cards)) {
+      return Hands.two_pair;
+    }
+    if (isOnePair(cards)) {
+      return Hands.one_pair;
+    }
+
     return Hands.high_card;
   }
 
@@ -326,7 +327,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   bool isFullHouse(List<CardModel> cards) {
-    return isTwoPair(cards) && isThreeOfAKind(cards);
+    return isOnePair(cards) && isThreeOfAKind(cards);
   }
 
   bool isFlush(List<CardModel> cards) {
@@ -414,7 +415,7 @@ class _HomePageState extends State<HomePage> {
     for (CardModel card in cards) {
       cardGroup[card.value] = cardGroup[card.value]! + 1;
     }
-    return cardGroup.values.contains(2);
+    return cardGroup.values.where((element) => element == 2).length == 1;
   }
 
   void _showDialog(BuildContext context, bool correct, Hands handCorrect) {
