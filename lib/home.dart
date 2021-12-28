@@ -219,11 +219,8 @@ class _HomePageState extends State<HomePage> {
     if (isTwoPair(cards)) {
       handCorret = Hands.two_pair;
     }
-    if (isRoyalFlush(cards)) {
+    if (isOnePair(cards)) {
       handCorret = Hands.one_pair;
-    }
-    if (isRoyalFlush(cards)) {
-      handCorret = Hands.high_card;
     }
 
     _showDialog(context, handCorret == hand);
@@ -301,6 +298,30 @@ class _HomePageState extends State<HomePage> {
       cardGroup[card.value] = cardGroup[card.value]! + 1;
     }
     return cardGroup.values.where((element) => element == 2).length == 2;
+  }
+
+  bool isOnePair(List<CardModel> cards) {
+    Map<int, int> cardGroup = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+      13: 0,
+    };
+
+    for (CardModel card in cards) {
+      cardGroup[card.value] = cardGroup[card.value]! + 1;
+    }
+    return cardGroup.values.where((element) => element == 2).length == 1;
   }
 
   void _showDialog(BuildContext context, bool correct) {
