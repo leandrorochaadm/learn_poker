@@ -334,7 +334,7 @@ class _HomePageState extends State<HomePage> {
 
   bool isFlush(List<CardModel> cards) {
     Suits firstSuit = cards[0].suit;
-    return cards.every((element) => element.suit == firstSuit);
+    return cards.where((element) => element.suit == firstSuit).length >= 5;
   }
 
   bool isStraight(List<CardModel> cards) {
