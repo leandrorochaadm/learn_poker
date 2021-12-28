@@ -169,11 +169,11 @@ class _HomePageState extends State<HomePage> {
 
   List<CardModel> _list() {
     return [
-      CardModel(label: "A", suit: Suits.clubs, value: 0),
-      CardModel(label: "A", suit: Suits.clubs, value: 2),
-      CardModel(label: "A", suit: Suits.clubs, value: 2),
-      CardModel(label: "A", suit: Suits.clubs, value: 3),
-      CardModel(label: "1", suit: Suits.clubs, value: 4),
+      CardModel(label: "A", suit: Suits.hearts, value: 0),
+      CardModel(label: "A", suit: Suits.clubs, value: 10),
+      CardModel(label: "A", suit: Suits.clubs, value: 11),
+      CardModel(label: "A", suit: Suits.clubs, value: 12),
+      CardModel(label: "1", suit: Suits.clubs, value: 13),
     ];
   }
 
@@ -194,42 +194,68 @@ class _HomePageState extends State<HomePage> {
 
   void checkHand(BuildContext context, Hands hand, List<CardModel> cards) {
     Hands handCorret = Hands.high_card;
-
-    if (isRoyalFlush(cards)) {
-      handCorret = Hands.royal_flush;
-    }
-    if (isStraightFlush(cards)) {
-      handCorret = Hands.straight_flush;
-    }
-    if (isFourKind(cards)) {
-      handCorret = Hands.four_of_a_kind;
-    }
-    if (isFullHouse(cards)) {
-      handCorret = Hands.full_house;
-    }
-    if (isFlush(cards)) {
-      handCorret = Hands.flush;
-    }
-    if (isStraight(cards)) {
-      handCorret = Hands.straight;
-    }
-    if (isThreeOfAKind(cards)) {
-      handCorret = Hands.three_of_a_kind;
+    if (isOnePair(cards)) {
+      handCorret = Hands.one_pair;
     }
     if (isTwoPair(cards)) {
       handCorret = Hands.two_pair;
     }
-    if (isOnePair(cards)) {
-      handCorret = Hands.one_pair;
+    if (isThreeOfAKind(cards)) {
+      handCorret = Hands.three_of_a_kind;
     }
+    if (isStraight(cards)) {
+      handCorret = Hands.straight;
+    }
+    if (isFlush(cards)) {
+      handCorret = Hands.flush;
+    }
+    if (isFullHouse(cards)) {
+      handCorret = Hands.full_house;
+    }
+    if (isFourKind(cards)) {
+      handCorret = Hands.four_of_a_kind;
+    }
+    if (isStraightFlush(cards)) {
+      handCorret = Hands.straight_flush;
+    }
+    if (isRoyalFlush(cards)) {
+      handCorret = Hands.royal_flush;
+    }
+
+    print(handCorret.name + " >" + hand.name);
 
     _showDialog(context, handCorret == hand);
   }
 
   bool isRoyalFlush(List<CardModel> cards) {
-    // Suits firstSuit = hand[0].suit;
-    // return hand.every((element) => element.suit == firstSuit);
-    return false;
+    Map<int, int> cardGroup = {
+      0: 0,
+      1: 0,
+      2: 0,
+      3: 0,
+      4: 0,
+      5: 0,
+      6: 0,
+      7: 0,
+      8: 0,
+      9: 0,
+      10: 0,
+      11: 0,
+      12: 0,
+      13: 0,
+    };
+
+    for (CardModel card in cards) {
+      cardGroup[card.value] = cardGroup[card.value]! + 1;
+    }
+
+    bool royal = cardGroup[0]! == 1 &&
+        cardGroup[10]! == 1 &&
+        cardGroup[11]! == 1 &&
+        cardGroup[12]! == 1 &&
+        cardGroup[13]! == 1;
+
+    return royal && isFlush(cards);
   }
 
   bool isStraightFlush(List<CardModel> cards) {
