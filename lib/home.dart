@@ -182,20 +182,25 @@ class _HomePageState extends State<HomePage> {
 
     Hands hand;
     do {
-      table = [];
-      while (table.length < 5) {
-        List<CardModel> cheapUse = _cheapComplete();
-        Random random = Random();
-        int randomNumber = random.nextInt(cheapUse.length);
-        table.add(cheapUse[randomNumber]);
-        cheapUse.removeAt(randomNumber);
-      }
+      table = generateNewHand();
       // print(table);
       hand = checkHand(table);
     } while (hand == Hands.high_card ||
         hand == Hands.one_pair ||
         hand == Hands.three_of_a_kind);
 
+    return table;
+  }
+
+  List<CardModel> generateNewHand() {
+    Random random = Random();
+    List<CardModel> table = [];
+    while (table.length < 5) {
+      List<CardModel> cheapUse = _cheapComplete();
+      int randomNumber = random.nextInt(cheapUse.length);
+      table.add(cheapUse[randomNumber]);
+      cheapUse.removeAt(randomNumber);
+    }
     return table;
   }
 
