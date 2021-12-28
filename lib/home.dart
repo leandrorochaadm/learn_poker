@@ -16,6 +16,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<CardModel> table = [];
+  List<Hands> lastAnswer = [];
   @override
   Widget build(BuildContext context) {
     table = _cheapSort();
@@ -183,11 +184,9 @@ class _HomePageState extends State<HomePage> {
     Hands hand;
     do {
       table = generateNewHand();
-      // print(table);
       hand = checkHand(table);
-    } while (hand == Hands.high_card ||
-        hand == Hands.one_pair ||
-        hand == Hands.three_of_a_kind);
+      print("$table  ${hand.name}");
+    } while (lastAnswer.contains(hand));
 
     return table;
   }
@@ -206,7 +205,13 @@ class _HomePageState extends State<HomePage> {
 
   void checkAnswer(BuildContext context, Hands hand, List<CardModel> cards) {
     Hands handCorret = checkHand(cards);
+
+    if (lastAnswer.length > 4) {
+      lastAnswer = [];
+    }
+    lastAnswer.add(handCorret);
     print(handCorret.name + " =" + hand.name);
+    print(lastAnswer.length);
 
     _showDialog(context, handCorret == hand, handCorret);
   }
