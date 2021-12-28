@@ -41,27 +41,27 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.royal_flush, table);
+                            checkAnswer(context, Hands.royal_flush, table);
                           },
                           child: const Text('Sequência Real Royal')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.straight_flush, table);
+                            checkAnswer(context, Hands.straight_flush, table);
                           },
                           child: const Text('Sequência de mesmo naipe	')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.four_of_a_kind, table);
+                            checkAnswer(context, Hands.four_of_a_kind, table);
                           },
                           child: const Text('Quadra')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.full_house, table);
+                            checkAnswer(context, Hands.full_house, table);
                           },
                           child: const Text('Full House')),
                       ElevatedButton(
                         onPressed: () {
-                          checkHand(context, Hands.flush, table);
+                          checkAnswer(context, Hands.flush, table);
                         },
                         child: const Text('Flush'),
                       ),
@@ -72,27 +72,27 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.straight, table);
+                            checkAnswer(context, Hands.straight, table);
                           },
                           child: const Text('Sequência')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.three_of_a_kind, table);
+                            checkAnswer(context, Hands.three_of_a_kind, table);
                           },
                           child: const Text('Trinca')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.two_pair, table);
+                            checkAnswer(context, Hands.two_pair, table);
                           },
                           child: const Text('Dois Pares')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.one_pair, table);
+                            checkAnswer(context, Hands.one_pair, table);
                           },
                           child: const Text('Um Par')),
                       ElevatedButton(
                           onPressed: () {
-                            checkHand(context, Hands.high_card, table);
+                            checkAnswer(context, Hands.high_card, table);
                           },
                           child: const Text('Carta Alta')),
                     ],
@@ -183,48 +183,55 @@ class _HomePageState extends State<HomePage> {
     List<CardModel> table = [];
 
     Random random = Random();
-    while (table.length < 5) {
-      int randomNumber = random.nextInt(cheapUse.length);
-      table.add(cheapUse[randomNumber]);
-      cheapUse.removeAt(randomNumber);
-    }
+    do {
+      table = [];
+      while (table.length < 5) {
+        int randomNumber = random.nextInt(cheapUse.length);
+        table.add(cheapUse[randomNumber]);
+        cheapUse.removeAt(randomNumber);
+      }
+      // print(table);
+    } while (checkHand(table) == Hands.high_card);
 
     return table;
   }
 
-  void checkHand(BuildContext context, Hands hand, List<CardModel> cards) {
-    Hands handCorret = Hands.high_card;
-    if (isOnePair(cards)) {
-      handCorret = Hands.one_pair;
-    }
-    if (isTwoPair(cards)) {
-      handCorret = Hands.two_pair;
-    }
-    if (isThreeOfAKind(cards)) {
-      handCorret = Hands.three_of_a_kind;
-    }
-    if (isStraight(cards)) {
-      handCorret = Hands.straight;
-    }
-    if (isFlush(cards)) {
-      handCorret = Hands.flush;
-    }
-    if (isFullHouse(cards)) {
-      handCorret = Hands.full_house;
-    }
-    if (isFourKind(cards)) {
-      handCorret = Hands.four_of_a_kind;
-    }
-    if (isStraightFlush(cards)) {
-      handCorret = Hands.straight_flush;
-    }
-    if (isRoyalFlush(cards)) {
-      handCorret = Hands.royal_flush;
-    }
-
-    print(handCorret.name + " >" + hand.name);
+  void checkAnswer(BuildContext context, Hands hand, List<CardModel> cards) {
+    Hands handCorret = checkHand(cards);
+    print(handCorret.name + " =" + hand.name);
 
     _showDialog(context, handCorret == hand, handCorret);
+  }
+
+  Hands checkHand(List<CardModel> cards) {
+    if (isOnePair(cards)) {
+      return Hands.one_pair;
+    }
+    if (isTwoPair(cards)) {
+      return Hands.two_pair;
+    }
+    if (isThreeOfAKind(cards)) {
+      return Hands.three_of_a_kind;
+    }
+    if (isStraight(cards)) {
+      return Hands.straight;
+    }
+    if (isFlush(cards)) {
+      return Hands.flush;
+    }
+    if (isFullHouse(cards)) {
+      return Hands.full_house;
+    }
+    if (isFourKind(cards)) {
+      return Hands.four_of_a_kind;
+    }
+    if (isStraightFlush(cards)) {
+      return Hands.straight_flush;
+    }
+    if (isRoyalFlush(cards)) {
+      return Hands.royal_flush;
+    }
+    return Hands.high_card;
   }
 
   bool isRoyalFlush(List<CardModel> cards) {
