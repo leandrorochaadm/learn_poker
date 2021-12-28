@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: height * 0.10, horizontal: width * 0.05),
+            vertical: height * 0.10, horizontal: width * 0.025),
         child: Column(
           children: [
             Row(
@@ -189,9 +189,11 @@ class _HomePageState extends State<HomePage> {
 
   List<CardModel> _list() {
     return [
-      CardModel(label: "A", suit: Suits.hearts, value: 0),
+      CardModel(label: "11", suit: Suits.hearts, value: 11),
       CardModel(label: "11", suit: Suits.clubs, value: 11),
       CardModel(label: "11", suit: Suits.clubs, value: 11),
+      CardModel(label: "10", suit: Suits.clubs, value: 10),
+      CardModel(label: "10", suit: Suits.clubs, value: 10),
       CardModel(label: "10", suit: Suits.clubs, value: 10),
       CardModel(label: "10", suit: Suits.clubs, value: 10),
     ];
@@ -201,12 +203,12 @@ class _HomePageState extends State<HomePage> {
     List<CardModel> table = [];
 
     Hands hand;
-    do {
-      table = generateNewHand();
-      // table = _list();
-      hand = checkHand(table);
-      print("$table  ${hand.name}");
-    } while (lastAnswer.contains(hand));
+    // do {
+    // table = generateNewHand();
+    table = _list();
+    hand = checkHand(table);
+    print("$table  ${hand.name}");
+    // } while (lastAnswer.contains(hand));
 
     return table;
   }
