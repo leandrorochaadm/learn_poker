@@ -171,9 +171,9 @@ class _HomePageState extends State<HomePage> {
     return [
       CardModel(label: "A", suit: Suits.hearts, value: 0),
       CardModel(label: "A", suit: Suits.clubs, value: 10),
-      CardModel(label: "A", suit: Suits.clubs, value: 11),
-      CardModel(label: "A", suit: Suits.clubs, value: 12),
-      CardModel(label: "1", suit: Suits.clubs, value: 13),
+      CardModel(label: "A", suit: Suits.clubs, value: 10),
+      CardModel(label: "A", suit: Suits.clubs, value: 10),
+      CardModel(label: "1", suit: Suits.clubs, value: 10),
     ];
   }
 
@@ -224,7 +224,7 @@ class _HomePageState extends State<HomePage> {
 
     print(handCorret.name + " >" + hand.name);
 
-    _showDialog(context, handCorret == hand);
+    _showDialog(context, handCorret == hand, handCorret);
   }
 
   bool isRoyalFlush(List<CardModel> cards) {
@@ -378,14 +378,15 @@ class _HomePageState extends State<HomePage> {
     return cardGroup.values.where((element) => element == 2).length == 1;
   }
 
-  void _showDialog(BuildContext context, bool correct) {
+  void _showDialog(BuildContext context, bool correct, Hands handCorrect) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: correct
               ? const Text('Acertou', style: TextStyle(color: Colors.green))
-              : const Text('Errou', style: TextStyle(color: Colors.red)),
+              : Text("Errou\nresposta correta é: ${handCorrect.name}",
+                  style: TextStyle(color: Colors.red)),
           actions: <Widget>[
             TextButton(
               child: const Text("Sortiar novas cartas"),
