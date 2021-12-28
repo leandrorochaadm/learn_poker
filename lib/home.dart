@@ -213,7 +213,7 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> generateNewHand() {
     Random random = Random();
     List<CardModel> table = [];
-    while (table.length < 5) {
+    while (table.length < 7) {
       List<CardModel> cheapUse = _cheapComplete();
       int randomNumber = random.nextInt(cheapUse.length);
       table.add(cheapUse[randomNumber]);
