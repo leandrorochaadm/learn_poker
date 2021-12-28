@@ -19,22 +19,31 @@ class _HomePageState extends State<HomePage> {
   List<Hands> lastAnswer = [];
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+    var styleButton = ElevatedButton.styleFrom(
+      fixedSize: Size(
+        width * 0.4,
+        height * 0.08,
+      ), // put
+      textStyle: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+    );
+
     table = _cheapSort();
     return Scaffold(
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            child: Row(
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+            vertical: height * 0.10, horizontal: width * 0.05),
+        child: Column(
+          children: [
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: table.map((e) => CardPlaying(e)).toList(),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
+            Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Column(
                     mainAxisSize: MainAxisSize.max,
@@ -44,23 +53,28 @@ class _HomePageState extends State<HomePage> {
                           onPressed: () {
                             checkAnswer(context, Hands.royal_flush, table);
                           },
+                          style: styleButton,
                           child: const Text('Sequência Real Royal')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.straight_flush, table);
                           },
-                          child: const Text('Sequência de mesmo naipe	')),
+                          child: const Text('Sequência mesmo naipe	')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.four_of_a_kind, table);
                           },
                           child: const Text('Quadra')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.full_house, table);
                           },
                           child: const Text('Full House')),
                       ElevatedButton(
+                        style: styleButton,
                         onPressed: () {
                           checkAnswer(context, Hands.flush, table);
                         },
@@ -72,26 +86,31 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.straight, table);
                           },
                           child: const Text('Sequência')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.three_of_a_kind, table);
                           },
                           child: const Text('Trinca')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.two_pair, table);
                           },
                           child: const Text('Dois Pares')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.one_pair, table);
                           },
                           child: const Text('Um Par')),
                       ElevatedButton(
+                          style: styleButton,
                           onPressed: () {
                             checkAnswer(context, Hands.high_card, table);
                           },
@@ -100,9 +119,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -406,7 +425,7 @@ class _HomePageState extends State<HomePage> {
           title: correct
               ? const Text('Acertou', style: TextStyle(color: Colors.green))
               : Text("Errou\nresposta correta é: ${handCorrect.name}",
-                  style: TextStyle(color: Colors.red)),
+                  style: const TextStyle(color: Colors.red)),
           actions: <Widget>[
             TextButton(
               child: const Text("Sortiar novas cartas"),

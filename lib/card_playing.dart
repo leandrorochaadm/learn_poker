@@ -15,16 +15,17 @@ class CardPlaying extends StatefulWidget {
 class _CardPlayingState extends State<CardPlaying> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     Color _color =
         (widget.card.suit == Suits.diamonds || widget.card.suit == Suits.hearts)
             ? Colors.red
             : Colors.black;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.only(bottom: height * 0.05),
       child: Row(children: [
         Text(
           "${widget.card.label}${widget.card.SuitIcon()}",
-          style: TextStyle(color: _color, fontSize: 20),
+          style: TextStyle(color: _color, fontSize: 36),
         )
       ]),
     );
