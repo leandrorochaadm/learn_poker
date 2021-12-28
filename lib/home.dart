@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   List<CardModel> table = [];
   @override
   Widget build(BuildContext context) {
-    table = _list();
+    table = _cheapSort();
     return Scaffold(
       body: Column(
         children: [
@@ -375,7 +375,7 @@ class _HomePageState extends State<HomePage> {
     for (CardModel card in cards) {
       cardGroup[card.value] = cardGroup[card.value]! + 1;
     }
-    return cardGroup.values.where((element) => element == 2).length == 1;
+    return cardGroup.values.contains(2);
   }
 
   void _showDialog(BuildContext context, bool correct, Hands handCorrect) {
