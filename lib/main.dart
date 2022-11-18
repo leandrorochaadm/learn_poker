@@ -3,6 +3,8 @@ import 'package:aprenda_poker/identify_hand.dart';
 import 'package:aprenda_poker/which_hand_page.dart';
 import 'package:flutter/material.dart';
 
+import 'keyboard_hand.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -22,7 +24,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         'home': (BuildContext context) => const HomePage(),
         'whichHand': (BuildContext context) => const WhichHandPage(),
-        'identifyHand': (BuildContext context) => const IdentifyHand(),
+        'identifyHand': (BuildContext context) => IdentifyHand(),
+        'keyboardHand': (BuildContext context) => KeyboardHand(),
       },
       initialRoute: 'home',
       home: const HomePage(),
