@@ -1,3 +1,5 @@
+import 'package:aprenda_poker/home_page.dart';
+import 'package:aprenda_poker/identify_hand.dart';
 import 'package:aprenda_poker/which_hand_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const WhichHandPage(),
+      routes: <String, WidgetBuilder>{
+        'home': (BuildContext context) => const HomePage(),
+        'whichHand': (BuildContext context) => const WhichHandPage(),
+        'identifyHand': (BuildContext context) => const IdentifyHand(),
+      },
+      initialRoute: 'home',
+      home: const HomePage(),
     );
   }
 }
