@@ -21,7 +21,7 @@ class _CardPlayingState extends State<CardPlaying> {
             ? Colors.red
             : Colors.black;
     return Padding(
-      padding: EdgeInsets.only(bottom: height * 0.05, right: height * 0.01),
+      padding: EdgeInsets.only(bottom: height * 0.04, right: height * 0.01),
       child: Row(children: [
         Text(
           "${widget.card.label}${widget.card.SuitIcon()}",

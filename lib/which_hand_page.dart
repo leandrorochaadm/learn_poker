@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 
 import 'hand_enum.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class WhichHandPage extends StatefulWidget {
+  const WhichHandPage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _WhichHandPageState createState() => _WhichHandPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _WhichHandPageState extends State<WhichHandPage> {
   List<CardModel> table = [];
   List<Hands> lastAnswer = [];
   @override
