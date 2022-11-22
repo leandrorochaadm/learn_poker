@@ -31,6 +31,9 @@ class _WhichHandPageState extends State<WhichHandPage> {
 
     table = _cheapSort();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Identifique a mão'),
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(
             vertical: height * 0.10, horizontal: width * 0.025),
