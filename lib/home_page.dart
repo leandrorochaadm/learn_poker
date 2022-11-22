@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           _button(route: 'identifyHand', label: 'Descubra sua mão'),
-          _button(route: 'whichHand', label: 'Treinar mão'),
+          _button(route: 'whichHand', label: 'Identifique a mão'),
           _button(route: 'rankingHand', label: 'Ranking das mãos'),
         ],
       ),
@@ -32,11 +32,14 @@ class _button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 16),
-      width: 180,
+      width: 320,
       height: 60,
       child: ElevatedButton(
           onPressed: () => Navigator.pushNamed(context, route),
-          child: Text(label)),
+          child: Text(
+            label,
+            style: const TextStyle(fontSize: 24),
+          )),
     );
   }
 }
