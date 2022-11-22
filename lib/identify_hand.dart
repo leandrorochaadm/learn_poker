@@ -239,8 +239,17 @@ class _IdentifyHandState extends State<IdentifyHand> {
   }
 
   bool isFlush(List<CardModel> cards) {
-    Suits firstSuit = cards[0].suit;
-    return cards.where((element) => element.suit == firstSuit).length >= 5;
+    Map<Suits, int> groupSuit = {
+      Suits.clubs: 0,
+      Suits.diamonds: 0,
+      Suits.hearts: 0,
+      Suits.spades: 0,
+    };
+
+    for (var card in cards) {
+      groupSuit[card.suit] = groupSuit[card.suit]! + 1;
+    }
+    return groupSuit.values.where((int element) => element >= 5).isNotEmpty;
   }
 
   bool isStraight(List<CardModel> cards) {
