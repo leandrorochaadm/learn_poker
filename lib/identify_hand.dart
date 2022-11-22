@@ -197,11 +197,11 @@ class _IdentifyHandState extends State<IdentifyHand> {
       cardGroup[card.value] = cardGroup[card.value]! + 1;
     }
 
-    bool royal = cardGroup[0]! == 1 &&
-        cardGroup[10]! == 1 &&
-        cardGroup[11]! == 1 &&
-        cardGroup[12]! == 1 &&
-        cardGroup[13]! == 1;
+    bool royal = cardGroup[9]! >= 1 &&
+        cardGroup[10]! >= 1 &&
+        cardGroup[11]! >= 1 &&
+        cardGroup[12]! >= 1 &&
+        cardGroup[13]! >= 1;
 
     return royal && isFlush(cards);
   }
@@ -246,7 +246,7 @@ class _IdentifyHandState extends State<IdentifyHand> {
   bool isStraight(List<CardModel> cards) {
     cards.sort((a, b) => a.value.compareTo(b.value));
     List<bool> resul = [];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < cards.length - 1; i++) {
       resul.add((cards[i + 1].value - cards[i].value) == 1);
       // print("${cards[i + 1].toString()}${cards[i].toString()}${resul}");
     }

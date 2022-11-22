@@ -334,7 +334,7 @@ class _WhichHandPageState extends State<WhichHandPage> {
   bool isStraight(List<CardModel> cards) {
     cards.sort((a, b) => a.value.compareTo(b.value));
     List<bool> resul = [];
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < cards.length - 1; i++) {
       resul.add((cards[i + 1].value - cards[i].value) == 1);
       // print("${cards[i + 1].toString()}${cards[i].toString()}${resul}");
     }
